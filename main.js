@@ -32,17 +32,18 @@ updateFcts.push(function(delta, now){
 //////////////////////////////////////////////////////////////////////////////////
 //		Camera Controls							//
 //////////////////////////////////////////////////////////////////////////////////
-/*var mouse	= {x : 0, y : 0}
-document.addEventListener('mousemove', function(event){
-	mouse.x	= (event.clientX / window.innerWidth ) - 0.5
-	mouse.y	= (event.clientY / window.innerHeight) - 0.5
-}, false)
-updateFcts.push(function(delta, now){
-	camera.position.x += (mouse.x*5 - camera.position.x) * (delta*3)
-	camera.position.y += (mouse.y*5 - camera.position.y) * (delta*3)
-	camera.lookAt( scene.position )
+// var mouse	= {x : 0, y : 0}
+document.addEventListener('wheel', function(event){
+	console.log(event.wheelDelta)
+	//scroll down
+	if(event.wheelDelta<0){
+		camera.position.z += 0.2
+	}
+	//scroll up
+	else{
+		camera.position.z -= 0.2
+	}
 })
-*/
 
 //////////////////////////////
 //		render the scene
