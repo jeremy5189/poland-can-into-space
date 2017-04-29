@@ -37,11 +37,15 @@ var mouse	= {x : 0, y : 0, oldX : 0, oldY : 0}
 document.addEventListener('wheel', function(event){
 	//scroll down
 	if(event.wheelDelta<0){
-		camera.position.z += 0.2
+		camera.position.x *= (radius+0.2)/radius
+		camera.position.y *= (radius+0.2)/radius
+		camera.position.z *= (radius+0.2)/radius
 	}
 	//scroll up
 	else{
-		camera.position.z -= 0.2
+		camera.position.x *= (radius-0.2)/radius
+		camera.position.y *= (radius-0.2)/radius
+		camera.position.z *= (radius-0.2)/radius
 	}
 })
 
