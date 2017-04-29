@@ -40,12 +40,14 @@ document.addEventListener('wheel', function(event){
 		camera.position.x *= (radius+0.2)/radius
 		camera.position.y *= (radius+0.2)/radius
 		camera.position.z *= (radius+0.2)/radius
+		radius+=0.2;
 	}
 	//scroll up
 	else{
 		camera.position.x *= (radius-0.2)/radius
 		camera.position.y *= (radius-0.2)/radius
 		camera.position.z *= (radius-0.2)/radius
+		radius-=0.2
 	}
 })
 
