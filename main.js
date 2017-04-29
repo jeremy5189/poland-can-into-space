@@ -15,9 +15,7 @@ var camera	= new THREE.PerspectiveCamera(
 camera.position.z = 3; // 越小畫面越大
 
 // 增加整體光
-var light	= new THREE.AmbientLight( 0x888888 )
-scene.add(light)
-var light	= new THREE.AmbientLight( 0xcccccc, 1 )
+var light	= new THREE.AmbientLight(0x999999, 2)
 scene.add(light)
 
 // 加入地球
