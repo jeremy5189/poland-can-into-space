@@ -4,7 +4,7 @@ var renderer	= new THREE.WebGLRenderer({
 
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
-renderer.shadowMapEnabled	= true
+renderer.shadowMap.enabled	= true
 
 var updateFcts	= [];
 var scene	= new THREE.Scene();
@@ -12,89 +12,29 @@ var camera	= new THREE.PerspectiveCamera(
 	45, window.innerWidth / window.innerHeight, 0.01, 100 
 );
 
-camera.position.z = 1; // 越小畫面越大
+camera.position.z = 3; // 越小畫面越大
 
+// 增加整體光
 var light	= new THREE.AmbientLight( 0x888888 )
-scene.add( light )
-// var light	= new THREE.DirectionalLight( 'white', 1)
-// light.position.set(5,5,5)
-// light.target.position.set( 0, 0, 0 )
-// scene.add( light )
-
+scene.add(light)
 var light	= new THREE.AmbientLight( 0xcccccc, 1 )
-//light.position.set(5,5,5)
-scene.add( light )
+scene.add(light)
 
-/*
-light.castShadow	    = true
-light.shadowCameraNear	= 0.01
-light.shadowCameraFar	= 15
-light.shadowCameraFov	= 45
-
-light.shadowCameraLeft	= -1
-light.shadowCameraRight	=  1
-light.shadowCameraTop	=  1
-light.shadowCameraBottom= -1
-// light.shadowCameraVisible	= true
-
-light.shadowBias	= 0.001
-light.shadowDarkness	= 0.2
-
-light.shadowMapWidth	= 1024
-light.shadowMapHeight	= 1024*/
-
-//////////////////////////////////////////////////////////////////////////////////
-//		add an object and make it move					//
-//////////////////////////////////////////////////////////////////////////////////
-// var mesh	= THREEx.Planets.createSun()
-// scene.add(mesh)
-// var mesh	= THREEx.Planets.createMercury()
-// scene.add(mesh)
-// var mesh	= THREEx.Planets.createVenus()
-// scene.add(mesh)
-// var mesh	= THREEx.Planets.createMoon()
-// scene.add(mesh)
+// 加入地球
 var earthMesh	= THREEx.Planets.createEarth()
 scene.add(earthMesh)
-/*var mesh	= THREEx.Planets.createEarthCloud()
-scene.add(mesh)
-updateFcts.push(function(delta, now){
-	mesh.rotation.y += 1/8 * delta;		
-})*/
-// var mesh	= THREEx.Planets.createMars()
-// scene.add(mesh)
-// var mesh	= THREEx.Planets.createJupiter()
-// scene.add(mesh)
-// var mesh	= THREEx.Planets.createSaturn()
-// mesh.receiveShadow	= true
-// mesh.castShadow		= true
-// scene.add(mesh)
-// var mesh	= THREEx.Planets.createSaturnRing()
-// mesh.receiveShadow	= true
-// mesh.castShadow		= true
-// scene.add(mesh)
-// var mesh	= THREEx.Planets.createUranus()
-// mesh.receiveShadow	= true
-// mesh.castShadow		= true
-// scene.add(mesh)
-// var mesh	= THREEx.Planets.createUranusRing()
-// mesh.receiveShadow	= true
-// mesh.castShadow		= true
-// scene.add(mesh)
-// var mesh	= THREEx.Planets.createNeptune()
-// scene.add(mesh)
-// var mesh	= THREEx.Planets.createPluto()
-// scene.add(mesh)
 
+// 讓地球轉 
 updateFcts.push(function(delta, now){
-	//mesh.rotation.x += 1 * delta;
-	//mesh.rotation.y += 1/2 * delta;		
+	earthMesh.rotation.y += 1/8 * delta;		
+	earthMesh.rotation.x += 1/16 * delta;	
 })
+
 
 //////////////////////////////////////////////////////////////////////////////////
 //		Camera Controls							//
 //////////////////////////////////////////////////////////////////////////////////
-var mouse	= {x : 0, y : 0}
+/*var mouse	= {x : 0, y : 0}
 document.addEventListener('mousemove', function(event){
 	mouse.x	= (event.clientX / window.innerWidth ) - 0.5
 	mouse.y	= (event.clientY / window.innerHeight) - 0.5
@@ -104,18 +44,18 @@ updateFcts.push(function(delta, now){
 	camera.position.y += (mouse.y*5 - camera.position.y) * (delta*3)
 	camera.lookAt( scene.position )
 })
+*/
 
-
-//////////////////////////////////////////////////////////////////////////////////
-//		render the scene						//
-//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////
+//		render the scene
+/////////////////////////////
 updateFcts.push(function(){
 	renderer.render( scene, camera );		
 })
 
-//////////////////////////////////////////////////////////////////////////////////
-//		loop runner							//
-//////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////
+//		looper runner
+/////////////////////////////
 var lastTimeMsec= null
 requestAnimationFrame(function animate(nowMsec){
 	// keep looping
